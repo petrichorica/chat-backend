@@ -50,7 +50,7 @@ jobs:
         with:
           name: node-app
       - run: |
-          unzip node-app.zip
+          unzip -o node-app.zip
           rm node-app.zip
 
   deploy:
