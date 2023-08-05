@@ -4,7 +4,8 @@ module.exports = {
     cwd: '/home/lily/chat-backend',
     script: 'npm',
     args: 'start',
-    watch: '.'
+    error_file: '/home/lily/err.log',
+    out_file: '/home/lily/out.log'
   }],
 
   deploy : {
