@@ -52,7 +52,7 @@ export default {
             }
           };
           const axios = require("axios");
-          axios.post(`${process.env.STRAPI_ADMIN_HOST_URL}/api/active-users`, strapiData)
+          axios.post(`http://127.0.0.1:1337/api/active-users`, strapiData)
           .then((e) => {
             socketUserid = e.data.data.id;
             socket.emit("roomData", {done: "true"});
@@ -60,11 +60,11 @@ export default {
           .catch((e) => {
             console.log("Create active users error", e.message)
             if (e.message == "Request failed with status code 400") {
-              axios.get(`${process.env.STRAPI_ADMIN_HOST_URL}/api/active-users?filters[user][$eq]=` + username)
+              axios.get(`http://127.0.0.1:1337/api/active-users?filters[user][$eq]=` + username)
               .then((res) => {
                 const id = res.data.data[0].id;
                 socketUserid = id;
-                return axios.put(`${process.env.STRAPI_ADMIN_HOST_URL}/api/active-users/${id}`, strapiData)
+                return axios.put(`http://127.0.0.1:1337/api/active-users/${id}`, strapiData)
               })
               .then((res) => {
                 socket.emit("roomData", {done: "existing"});
@@ -88,7 +88,7 @@ export default {
           },
         };
         const axios = require("axios");
-        axios.post(`${process.env.STRAPI_ADMIN_HOST_URL}/api/messages`, strapiData)
+        axios.post(`http://127.0.0.1:1337/api/messages`, strapiData)
         .then((e) => {
           socket.emit("message", {
             user: data.username,
@@ -167,7 +167,7 @@ export default {
               active: false,
             },
           };
-          axios.put(`${process.env.STRAPI_ADMIN_HOST_URL}/api/active-users/${socketUserid}`, strapiData)
+          axios.put(`http://127.0.0.1:1337/api/active-users/${socketUserid}`, strapiData)
           .catch((err) => {
             console.log("disconnect error", err.message);
           })
